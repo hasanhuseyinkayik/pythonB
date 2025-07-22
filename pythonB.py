@@ -4,6 +4,8 @@ import time
 print("PythonB'ye hoş geldin. Bu konsol uygulamasında "
       "Python ile yapabileceğin tüm temel kodları talep edebiliyor olacaksın.")
 
+degiskenler = {} #Kullanıcının eklediği tüm değişkenler ve değerler bu dict'de tutulacak
+
 delay = 3
 while delay > 0:
     time.sleep(1)
@@ -13,15 +15,15 @@ while delay > 0:
 time.sleep(1)
 print("Başlayalım.")
 
-ilk_islem = input("1. Değişkenler\n"
+ilk_islem = input("\n1. Değişkenler\n"
               "Hangi alanla ilgili işlem yapmak istiyorsun? Yukarıdaki seçeneklerden birini tuşla:\n")
 
 if ilk_islem == "1":
-    degiskenler_islem = input("DEĞİŞKENLER... Güzel. Değişkenlerle ilgili ne yapmak istersin?:\n"
+    degiskenler_islem = input("\nDEĞİŞKENLER... Güzel. Değişkenlerle ilgili ne yapmak istersin?:\n"
           "1. Bir değişken oluştur\n")
 
     if degiskenler_islem == "1":
-        degiskenler_no = input("1. Integer (int)\n"
+        degiskenler_no = input("\n1. Integer (int)\n"
                        "2. Float (float)\n"
                        "3. Kompleks (complex)\n"
                        "4. Karakter Dizisi/String (str)\n"
@@ -35,10 +37,19 @@ if ilk_islem == "1":
                        "Hangi tür bir değişken oluşturmak istersin?:\n")
 
         if degiskenler_no == "1":
-            print("Integer... Tabii, önce değişkeninin adını ardından da değerini girebilir misin?")
-            intName = input("Değişkenin adı:")
-            intValue = input("Değişkenin değeri:")
+            print("\nInteger... Tabii, önce değişkeninin adını ardından da değerini girebilir misin?")
 
+            intName = input("Değişkenin adı:")
+
+            while True:
+                intValue = input("Değişkenin değeri:")
+                try:
+                    intValue = int(intValue)
+                    break
+                except ValueError:
+                    print('Lütfen "int" türünde bir değer giriniz.')
+
+            degiskenler[f"{intName}"] = {intValue}
             print(f"Tebrikler yeni bir int değişkeni oluşturdunuz, {intName} = {intValue}")
 
 
