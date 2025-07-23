@@ -1,4 +1,6 @@
 # PythonB
+import keyword
+import string
 import time
 
 print("PythonB'ye hoş geldin. Bu konsol uygulamasında "
@@ -39,17 +41,37 @@ if ilk_islem == "1":
         if degiskenler_no == "1":
             print("\nInteger... Tabii, önce değişkeninin adını ardından da değerini girebilir misin?")
 
-            intName = input("Değişkenin adı:")
+            keywwords = keyword.kwlist  #python keywordlerinin listesi
+            dogru_isimlendirme = string.ascii_letters + string.digits + "_" #değişken adında geçebilecek karakterler
+
+            while True:
+                intName = input("Değişkenin adı:")
+                if not intName:   #değişken adı boş mu?
+                    print("Değişken adı boş olamaz.")
+                    continue
+                elif intName[0].isdigit():    #ilk karakter rakam mı?
+                    print("Değişken adı rakam ile başlayamaz. Tekrar giriniz.")
+                    continue
+                elif intName in keywwords:  #değişken adı bir keyword mü?
+                    print("Python anahtar kelimeleri değişken adı olarak kullanılamaz. Tekrar giriniz.")
+                    continue
+                elif "," in intName:    #değişken adı içerisinde "," geçiyor mu?
+                    print("Değişken adı özel karakter içeremez. Tekrar giriniz.")
+                    continue
+                elif any(degiskenAdi not in dogru_isimlendirme for degiskenAdi in intName): #aksi durumlarda özel karakter içerecektir.
+                    print("Değişken adı özel karakter içeremez. Tekrar giriniz.")
+                    continue
+                else:
+                    break
 
             while True:
                 intValue = input("Değişkenin değeri:")
-                try:
+                try:    #girilen değer int mı?
                     intValue = int(intValue)
                     break
                 except ValueError:
                     print('Lütfen "int" türünde bir değer giriniz.')
 
-            degiskenler[f"{intName}"] = {intValue}
+            degiskenler[intName] = {intValue}
             print(f"Tebrikler yeni bir int değişkeni oluşturdunuz, {intName} = {intValue}")
-
 
