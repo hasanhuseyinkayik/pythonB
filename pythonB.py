@@ -17,6 +17,31 @@ while delay > 0:
 time.sleep(1)
 print("Başlayalım.")
 
+keywords = keyword.kwlist  # python keywordlerinin listesi
+dogru_isimlendirme = string.ascii_letters + string.digits + "_"  # değişken adında geçebilecek karakterler
+
+def degisken_ismi():    #Değişken ismi kontrol fonks.
+    while True:
+        var_name = input("Değişkenin adı:")
+        if not var_name:  # değişken adı boş mu?
+            print("Değişken adı boş olamaz.")
+            continue
+        elif var_name[0].isdigit():  # ilk karakter rakam mı?
+            print("Değişken adı rakam ile başlayamaz. Tekrar giriniz.")
+            continue
+        elif var_name in keywords:  # değişken adı bir keyword mü?
+            print("Python anahtar kelimeleri değişken adı olarak kullanılamaz. Tekrar giriniz.")
+            continue
+        elif "," in var_name:  # değişken adı içerisinde "," geçiyor mu?
+            print("Değişken adı özel karakter içeremez. Tekrar giriniz.")
+            continue
+        elif any(degiskenAdi not in dogru_isimlendirme for degiskenAdi in
+                 var_name):  # aksi durumlarda özel karakter içerecektir.
+            print("Değişken adı özel karakter içeremez. Tekrar giriniz.")
+            continue
+        else:
+            return var_name
+
 ilk_islem = input("\n1. Değişkenler\n"
               "Hangi alanla ilgili işlem yapmak istiyorsun? Yukarıdaki seçeneklerden birini tuşla:\n")
 
@@ -38,76 +63,36 @@ if ilk_islem == "1":
                        "11. Dondurulmuş Küme (frozenset)\n"
                        "Hangi tür bir değişken oluşturmak istersin?:\n")
 
-        keywords = keyword.kwlist  # python keywordlerinin listesi
-        dogru_isimlendirme = string.ascii_letters + string.digits + "_"  # değişken adında geçebilecek karakterler
-
         if degiskenler_no == "1":   #int
             print("\nInteger... Tabii, önce değişkeninin adını ardından da değerini girebilir misin?")
 
-            while True:
-                intName = input("Değişkenin adı:")
-                if not intName:   #değişken adı boş mu?
-                    print("Değişken adı boş olamaz.")
-                    continue
-                elif intName[0].isdigit():    #ilk karakter rakam mı?
-                    print("Değişken adı rakam ile başlayamaz. Tekrar giriniz.")
-                    continue
-                elif intName in keywords:  #değişken adı bir keyword mü?
-                    print("Python anahtar kelimeleri değişken adı olarak kullanılamaz. Tekrar giriniz.")
-                    continue
-                elif "," in intName:    #değişken adı içerisinde "," geçiyor mu?
-                    print("Değişken adı özel karakter içeremez. Tekrar giriniz.")
-                    continue
-                elif any(degiskenAdi not in dogru_isimlendirme for degiskenAdi in intName): #aksi durumlarda özel karakter içerecektir.
-                    print("Değişken adı özel karakter içeremez. Tekrar giriniz.")
-                    continue
-                else:
-                    break
+            int_name = degisken_ismi()
 
             while True:
-                intValue = input("Değişkenin değeri:")
+                int_value = input("Değişkenin değeri:")
                 try:    #girilen değer int mı?
-                    intValue = int(intValue)
+                    int_value = int(int_value)
                     break
                 except ValueError:
                     print('Lütfen "int" türünde bir değer giriniz.')
 
-            degiskenler[intName] = {intValue}
-            print(f"Tebrikler yeni bir int değişkeni oluşturdunuz, {intName} = {intValue}")
+            degiskenler[int_name] = {int_value}
+            print(f"Tebrikler yeni bir int değişkeni oluşturdunuz, {int_name} = {int_value}")
 
         elif degiskenler_no == "2": #float
             print("\nFloat. Önce değişkeninin adını ardından da değerini girebilir misin?")
 
-            while True:
-                floatName = input("Değişkenin adı:")
-                if not floatName:  # değişken adı boş mu?
-                    print("Değişken adı boş olamaz.")
-                    continue
-                elif floatName[0].isdigit():  # ilk karakter rakam mı?
-                    print("Değişken adı rakam ile başlayamaz. Tekrar giriniz.")
-                    continue
-                elif floatName in keywords:  # değişken adı bir keyword mü?
-                    print("Python anahtar kelimeleri değişken adı olarak kullanılamaz. Tekrar giriniz.")
-                    continue
-                elif "," in floatName:  # değişken adı içerisinde "," geçiyor mu?
-                    print("Değişken adı özel karakter içeremez. Tekrar giriniz.")
-                    continue
-                elif any(degiskenAdi not in dogru_isimlendirme for degiskenAdi in
-                         floatName):  # aksi durumlarda özel karakter içerecektir.
-                    print("Değişken adı özel karakter içeremez. Tekrar giriniz.")
-                    continue
-                else:
-                    break
+            float_name = degisken_ismi()
 
             while True:
-                floatValue = input("Değişkenin değeri:")
-                virgulCeviri = floatValue.maketrans({',':'.'})  #virgülü noktaya çevirme işlemi
-                floatValue = floatValue.translate(virgulCeviri)
+                float_value = input("Değişkenin değeri:")
+                virgul_ceviri = float_value.maketrans({',': '.'})  #virgülü noktaya çevirme işlemi
+                float_value = float_value.translate(virgul_ceviri)
                 try:    #girilen değer float mı?
-                    floatValue = float(floatValue)
+                    float_value = float(float_value)
                     break
                 except ValueError:
                     print('Lütfen "float" türünde bir değer giriniz.')
 
-            degiskenler[floatName] = {floatValue}
-            print(f"Tebrikler yeni bir float değişkeni oluşturdunuz, {floatName} = {floatValue}")
+            degiskenler[float_name] = {float_value}
+            print(f"Tebrikler yeni bir float değişkeni oluşturdunuz, {float_name} = {float_value}")
