@@ -76,7 +76,7 @@ if ilk_islem == "1":
                 except ValueError:
                     print('Lütfen "int" türünde bir değer giriniz.')
 
-            degiskenler[int_name] = {int_value}
+            degiskenler[int_name] = int_value
             print(f"Tebrikler yeni bir int değişkeni oluşturdunuz, {int_name} = {int_value}")
 
         elif degiskenler_no == "2": #float
@@ -94,5 +94,34 @@ if ilk_islem == "1":
                 except ValueError:
                     print('Lütfen "float" türünde bir değer giriniz.')
 
-            degiskenler[float_name] = {float_value}
+            degiskenler[float_name] = float_value
             print(f"Tebrikler yeni bir float değişkeni oluşturdunuz, {float_name} = {float_value}")
+
+        elif degiskenler_no == "4": #string
+            print('\n"String". Önce değişkeninin adını ardından da değerini girebilir misin?')
+
+            string_name = degisken_ismi()
+
+            string_value = input("Değişkenin değeri:")
+
+            degiskenler[string_name] = string_value
+            print(f'Tebrikler yeni bir string değişkeni oluşturdunuz, {string_name} = "{string_value}"')
+
+        elif degiskenler_no == "5": #bool
+            print('\n("Boolean") 01000010 01101111 01101111 01101100 01100101 01100001 01101110.\n'
+                  'Önce değişkeninin adını ardından da değerini girebilir misin?')
+
+            bool_name = degisken_ismi()
+
+
+            bool_value = input("Değişkenin değeri:")
+            virgul_ceviri = bool_value.maketrans({',': '.'})  # virgülü noktaya çevirme işlemi
+            bool_value = bool_value.translate(virgul_ceviri)
+            if bool_value == "False" or bool_value == "None" or bool_value == "0" or bool_value == "0.0" or bool_value == "0.00" or bool_value == "0j" or bool_value == "" or bool_value == "range(0)" or bool_value == "[]" or bool_value == "{}":
+                bool_value = False  #False olan durumlar
+
+            bool_value = bool(bool_value)
+
+            degiskenler[bool_name] = bool_value
+            print(f'Tebrikler yeni bir bool değişkeni oluşturdunuz, {bool_name} = {bool_value}')
+
