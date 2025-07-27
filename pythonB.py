@@ -1,5 +1,6 @@
 # PythonB
 import keyword
+import re
 import string
 import time
 
@@ -24,7 +25,7 @@ def degisken_ismi():    #Değişken ismi kontrol fonks.
     while True:
         var_name = input("Değişkenin adı:")
         if not var_name:  # değişken adı boş mu?
-            print("Değişken adı boş olamaz.")
+            print("Değişken adı boş olamaz. Tekrar giriniz.")
             continue
         elif var_name[0].isdigit():  # ilk karakter rakam mı?
             print("Değişken adı rakam ile başlayamaz. Tekrar giriniz.")
@@ -113,7 +114,6 @@ if ilk_islem == "1":
 
             bool_name = degisken_ismi()
 
-
             bool_value = input("Değişkenin değeri:")
             virgul_ceviri = bool_value.maketrans({',': '.'})  # virgülü noktaya çevirme işlemi
             bool_value = bool_value.translate(virgul_ceviri)
@@ -124,4 +124,38 @@ if ilk_islem == "1":
 
             degiskenler[bool_name] = bool_value
             print(f'Tebrikler yeni bir bool değişkeni oluşturdunuz, {bool_name} = {bool_value}')
+
+        elif degiskenler_no == "6": #list
+            print('\nList. Önce değişkeninin adını ardından da değerini girebilir misin?')
+
+            list_name = degisken_ismi()
+
+            list_value = input("Değişkenin değeri:")
+
+            if list_value != "" and list_value[0] == "[" and list_value[-1] == "]": #boş liste girişi ve eğer köşeli parantez ile list girişi yapılırsa parantezleri silmek için
+                list_value = list_value[1:-1]
+
+            list_value = list_value.split(",")  #virgüllere ayırarak liste oluşturuyoruz
+
+            degiskenler[list_name] = list_value
+            print(f'Tebrikler yeni bir list oluşturdunuz, {list_name} = {list_value}')
+
+        elif degiskenler_no == "7": #tuple
+            print('\nTuple/Demet. Önce değişkeninin adını ardından da değerini girebilir misin?')
+
+            tuple_name = degisken_ismi()
+
+            tuple_value = input("Değişkenin değeri:")
+
+            if tuple_value != "" and tuple_value[0] == "(" and tuple_value[-1] == ")": #boş tuple girişi ve eğer parantez ile tuple girişi yapılırsa parantezleri silmek için
+                tuple_value = tuple_value[1:-1]
+
+            print(type(tuple_value))
+
+            tuple_value = tuple(tuple_value.split(","))  #virgüllere ayırarak list oluşturuyoruz ve ardından tuple'a dönüştürüyoruz
+
+            print(type(tuple_value))
+
+            degiskenler[tuple_name] = tuple_value
+            print(f'Tebrikler yeni bir tuple oluşturdunuz, {tuple_name} = {tuple_value}')
 
